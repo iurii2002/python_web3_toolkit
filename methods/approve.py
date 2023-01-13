@@ -1,6 +1,6 @@
 from web3 import Web3
 from methods.get_contract_abi import get_contract_abi
-from keys import HTTP_PROVIDER
+from providers import HTTP_PROVIDER
 from chain_info import chain_details
 
 

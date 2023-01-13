@@ -1,5 +1,5 @@
 import requests
-from keys import ARBISCAN_TOKEN
+from providers import ARBISCAN_TOKEN
 
 
 def get_contract_abi(address):
