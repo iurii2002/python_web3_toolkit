@@ -6,18 +6,22 @@ from typing import Optional, Dict, Any, List
 
 
 class Web3Manager:
-    def __init__(self, chain: str, private_key: str) -> None:
+    w3 = Web3(Web3.HTTPProvider(HTTP_PROVIDER))
+
+    def __init__(self, chain, account_address, private_key):
         """
         :param chain:
         :param private_key:
         """
-        # self.chain = chain
+        self.chain = chain
+        self.account_address = account_address
         self.private_key = private_key
         self.w3 = Web3(Web3.HTTPProvider(chain))
 
-    def approve(self, my_address, token_address, spender_address, amount=(2**256 - 1), proxy_contract=None):
+
+
+    def approve(self, token_address, spender_address, amount=(2**256 - 1), proxy_contract=None):
         """
-        :param my_address: Account that will add approve to other
         :param token_address: Token contract address that we want to allow spending
         :param spender_address: Address that will spend our tokens
         :param amount: Allowance amount, maximum if not provided
@@ -41,3 +45,4 @@ class Web3Manager:
         self.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
 
         return self.w3.toHex(self.w3.keccak(signed_txn.rawTransaction))
+
