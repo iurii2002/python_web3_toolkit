@@ -8,18 +8,20 @@ class Web3Manager:
 
     w3 = Web3(Web3.HTTPProvider(HTTP_PROVIDER))
 
-    def __init__(self, chain, private_key):
+    def __init__(self, chain, account_address, private_key):
         """
         :param chain:
         :param private_key:
         """
         self.chain = chain
+        self.account_address = account_address
         self.private_key = private_key
 
 
-    def approve(self, my_address, token_address, spender_address, amount=(2**256 - 1), proxy_contract=None):
+
+
+    def approve(self, token_address, spender_address, amount=(2**256 - 1), proxy_contract=None):
         """
-        :param my_address: Account that will add approve to other
         :param token_address: Token contract address that we want to allow spending
         :param spender_address: Address that will spend our tokens
         :param amount: Allowance amount, maximum if not provided
@@ -37,9 +39,10 @@ class Web3Manager:
             'gas': chain_details['gas'],
             'maxFeePerGas': chain_details['maxFeePerGas'],
             'maxPriorityFeePerGas': chain_details['maxPriorityFeePerGas'],
-            'nonce': w3.eth.get_transaction_count(my_address),
+            'nonce': w3.eth.get_transaction_count(self.account_address),
         })
-        signed_txn = w3.eth.account.sign_transaction(approve_tx, private_key=my_private_key)
+
         w3.eth.send_raw_transaction(signed_txn.rawTransaction)
 
         return w3.toHex(w3.keccak(signed_txn.rawTransaction))
+
