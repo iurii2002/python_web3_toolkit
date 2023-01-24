@@ -1,6 +1,6 @@
 from keys import INFURA_API_KEY
 
-prividers_dict = {
+providers_dict = {
 
     # INFURA
 
@@ -45,4 +45,4 @@ prividers_dict = {
 
 
 def get_http_provider(chain):
-    return prividers_dict[chain]
+    return providers_dict[chain]
